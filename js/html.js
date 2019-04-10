@@ -4,7 +4,7 @@
 var html = {
 	'functions': {
 		'add_text': function(value) { this.appendChild(document.createTextNode(value)); },
-		'div': function(value) { return this.appendChild(html.assign_common(document.createElement('div'))); },
+		'div': function(value) { return html.create_element('div'); },
 	},
 	'elements': {
 		'a': function(href, label=null) {
@@ -46,11 +46,6 @@ var html = {
 		}
 		this.setAttribute('class', el_cls.join(' '));
 	},
-	'create_element': function(name) {
-		var output = html.assign_common(document.createElement(name));
-		if (this) { this.appendChild(output); }
-		return output;
-	},
 	'remove_class': function(str) {
 		var el_cls = html.get_classes(this);
 		var in_cls = str.split(' ');
@@ -61,6 +56,11 @@ var html = {
 			}
 		}
 		this.setAttribute('class', el_cls.join(' '));
+	},
+	'create_element': function(name) {
+		var output = html.assign_common(document.createElement(name));
+		if (this) { this.appendChild(output); }
+		return output;
 	},
 	'by_id': function(id) { return html.assign_common(document.getElementById(id)); },
 }
