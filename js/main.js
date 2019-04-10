@@ -3,17 +3,15 @@
 
 var html = {
 	'functions': {
-		'add_text': function(value) {
-			this.appendChild(document.createTextNode(value))
-			
-		}
-	}}
+		'add_text': function(value) { this.appendChild(document.createTextNode(value)); },
+		'div': function(value) { return this.appendChild(html.assign_common(document.createElement('div'))); },
+	},
+	'assign_common': function(element) { return Object.assign(element, html.common); },
+	'by_id': function(id) { return html.assign_common(document.getElementById(id)); },
+}
 html.common = {
 	'add_text': html.functions.add_text,
-}
-function div() {
-	return Object.assign(document.createElement('div'), html.common)
+	'div': html.functions.div,
 }
 
-d = div()
-d.add_text('some text')
+html.by_id('main').div().add_text('costam')
